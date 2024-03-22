@@ -1,3 +1,5 @@
+import java.util.function.Predicate;
+
 public class Matrix {
     double[] data;
     int rows;
@@ -136,6 +138,152 @@ public class Matrix {
         else
         {
             throw new IllegalArgumentException("Cannot add this two matrixes");
+        }
+    }
+
+    Matrix sub(Matrix m)
+    {
+        int [] tab = m.shape();
+        if(tab[0] == rows && tab[1] == cols)
+        {
+            double [][] sub_matrixes = new double [rows][cols];
+
+            for(int i=0; i<rows; i++)
+            {
+                for(int j=0; j<cols; j++)
+                {
+                    sub_matrixes[i][j] = data[i*cols+j] - m.data[i*cols+j];
+                }
+            }
+            Matrix sub_mat = new Matrix(sub_matrixes);
+            return sub_mat;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Cannot substract this two matrixes");
+        }
+    }
+    Matrix mul(Matrix m)
+    {
+        int [] tab = m.shape();
+        if(tab[0] == rows && tab[1] == cols)
+        {
+            double[][] mul_matrixes = new double [rows] [cols];
+            for(int i=0; i<rows; i++)
+            {
+                for(int j=0; j<cols; j++)
+                {
+                    mul_matrixes[i][j] = data[i*cols+j] * m.data[i*cols+j];
+                }
+            }
+            Matrix mul_mat = new Matrix(mul_matrixes);
+            return mul_mat;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Cannot multiply this two matrixes");
+        }
+    }
+    Matrix div(Matrix m)
+    {
+        int [] tab = m.shape();
+        if(tab[0] == rows && tab[1] == cols)
+        {
+            double[][] mul_matrixes = new double [rows] [cols];
+            for(int i=0; i<rows; i++)
+            {
+                for(int j=0; j<cols; j++)
+                {
+                    mul_matrixes[i][j] = data[i*cols+j] / m.data[i*cols+j];
+                }
+            }
+            Matrix mul_mat = new Matrix(mul_matrixes);
+            return mul_mat;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Cannot multiply this two matrixes");
+        }
+    }
+
+    Matrix add(double w)
+    {
+        double [][] mat = new double [rows][cols];
+        for(int i=0; i<rows; i++)
+        {
+            for(int j=0; j<cols; j++)
+            {
+                mat[i][j] = data[i*cols+j] + w;
+            }
+        }
+        Matrix add_mat = new Matrix(mat);
+        return add_mat;
+    }
+
+    Matrix sub(double w)
+    {
+        double [][] mat = new double [rows][cols];
+        for(int i=0; i<rows; i++)
+        {
+            for(int j=0; j<cols; j++)
+            {
+                mat[i][j] = data[i*cols+j] - w;
+            }
+        }
+        Matrix sub_mat = new Matrix(mat);
+        return sub_mat;
+    }
+
+    Matrix mul(double w)
+    {
+        double [][] mat = new double [rows][cols];
+        for(int i=0; i<rows; i++)
+        {
+            for(int j=0; j<cols; j++)
+            {
+                mat[i][j] = data[i*cols+j] * w;
+            }
+        }
+        Matrix mul_mat = new Matrix(mat);
+        return mul_mat;
+    }
+
+    Matrix div(double w)
+    {
+        double [][] mat = new double [rows][cols];
+        for(int i=0; i<rows; i++)
+        {
+            for(int j=0; j<cols; j++)
+            {
+                mat[i][j] = data[i*cols+j] / w;
+            }
+        }
+        Matrix div_mat = new Matrix(mat);
+        return div_mat;
+    }
+
+    Matrix mull(Matrix m)
+    {
+        int [] tab = m.shape();
+        if(tab[0] == cols)
+        {
+            double [][] new_matrix = new double[rows][cols];
+            for(int i=0; i<rows; i++)
+            {
+                for(int j=0; j<cols; j++)
+                {
+                    new_matrix[i][j] = 0;
+                    for(int k=0; k<cols; k++)
+                    {
+                        new_matrix[i][j] += get(i, k) * m.get(k, j);
+                    }
+                }
+            }
+            return new Matrix(new_matrix);
+        }
+        else
+        {
+            throw new IllegalArgumentException("Those matrixes cannot be multiplied");
         }
     }
 }
