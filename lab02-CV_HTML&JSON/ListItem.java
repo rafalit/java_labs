@@ -11,6 +11,6 @@ public class ListItem
 
     public void writeHTML(PrintStream out)
     {
-        out.println("<li>" + content + "/li");
+        out.println("<li>" + content + "</li>");
     }
 }

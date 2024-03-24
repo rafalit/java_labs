@@ -30,4 +30,15 @@ public class Section {
             out.println("<p>" + paragraph.getContent() + "</p>");
         }
     }
+
+    public Paragraph getParagraph(int index) {
+        if(index>=0 && index<paragraphs.size())
+        {
+            return paragraphs.get(index);
+        }
+        else
+        {
+            throw new IndexOutOfBoundsException("Index out of bounds!");
+        }
+    }
 }
