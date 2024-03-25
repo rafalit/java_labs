@@ -1,6 +1,9 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+
 public class Document {
     String title;
     Photo photo;
@@ -55,6 +58,16 @@ public class Document {
 
         out.println("</body>");
         out.println("</html>");
+    }
+
+    String toJson(){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        return gson.toJson(this);
+    }
+
+    Document fromJson(String jsonString){
+        Gson gson = new GsonBuilder().create();
+        return gson.fromJson(jsonString, Document.class);
     }
 
 }

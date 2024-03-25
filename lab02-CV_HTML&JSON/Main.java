@@ -1,3 +1,11 @@
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintStream;
+
 public class Main
 {
     public static void main(String [] args)
@@ -21,5 +29,32 @@ public class Main
                                 .addListItem("Java")
                 );
         cv.writeHTML(System.out);
+
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("cv.html");
+            PrintStream ps = new PrintStream(fileOutputStream);
+
+            cv.writeHTML(ps);
+            ps.close();
+            fileOutputStream.close();
+
+        } catch (Exception e) {
+            System.err.println("Coś poszło nie tak" + e.getMessage());
+        }
+
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(cv);
+        String filePath = "cv.json";
+
+
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            fileWriter.write(json);
+            fileWriter.close();
+        }
+        catch (IOException e){
+            System.err.println("Coś poszło nie tak" + e.getMessage());
+        }
+
     }
 }
