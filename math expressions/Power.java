@@ -12,7 +12,7 @@ public class Power extends Node {
         return Math.pow(argVal,p);
     }
 
-
+    @Override
     int getArgumentsCount(){return 1;}
 
 
@@ -29,7 +29,13 @@ public class Power extends Node {
         b.append(argString);
         if(useBracket)b.append(")");
         b.append("^");
-        b.append(p);
+        if((int)p == p) {
+            b.append((int) p);
+        }
+        else
+        {
+            b.append(p);
+        }
         return b.toString();
     }
 
