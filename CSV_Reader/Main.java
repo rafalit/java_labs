@@ -7,24 +7,15 @@ import java.util.List;
 public class Main
 {
     public static void main(String[] args) throws IOException {
-        String text = "a,b,c\n123.4,567.8,91011.12";
-        CSVReader reader = new CSVReader(new StringReader(text),",",true);
+        String text = "Now faith is confidence in what we hope for and assurance about what we do not see\n" +
+                "Now faith is confidence in what we hope for and assurance about what we do not see";
+        CSVReader r = new CSVReader(new StringReader(text), " ", true);
 
-        List<String> headers = reader.getHeader();
-        for(String header : headers)
+        while(r.next())
         {
-            System.out.print(header + " ");
-        }
-
-        System.out.println();
-
-        while(reader.next())
-        {
-            for(String column : reader.getColumnLabels())
-            {
-                System.out.print(reader.get(column) + " ");
-            }
-            System.out.println();
+            System.out.println(r.get(1));
+            System.out.print(r.get("faith"));
         }
     }
+
 }

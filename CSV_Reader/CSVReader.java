@@ -51,18 +51,15 @@ public class CSVReader {
     Map<String,Integer> columnLabelsToInt = new HashMap<>();
 
     public void parseHeader() throws IOException {
-        // wczytaj wiersz
         String line = reader.readLine();
+        //System.out.println("Raw line from file: " + line);
         if (line == null) {
             return;
         }
-        // podziel na pola
         String[] header = line.split(delimiter);
-        // przetwarzaj dane w wierszu
         for (int i = 0; i < header.length; i++) {
-            // dodaj nazwy kolumn do columnLabels i numery do columnLabelsToInt
             columnLabels.add(header[i]);
-            columnLabelsToInt.put(header[i], i);
+            columnLabelsToInt.put(header[i].trim(), i);
         }
     }
 
@@ -77,12 +74,7 @@ public class CSVReader {
         return true;
     }
 
-    public List<String> getHeader()
-    {
-        return columnLabels;
-    }
-
-    List<String> getColumnLabels()
+    public List<String> getColumnLabels()
     {
         return columnLabels;
     }
@@ -121,9 +113,15 @@ public class CSVReader {
 
     String get(String columnLabel)
     {
+        if (!hasHeader) {
+            throw new IllegalStateException("The CSV file does not have a header.");
+        }
+
         Integer columnIndex = columnLabelsToInt.get(columnLabel);
-        if(columnIndex != null)
+        //System.out.print(columnLabel);
+        if (columnIndex != null)
         {
+            //System.out.println(current);
             return current[columnIndex];
         }
         return " ";
