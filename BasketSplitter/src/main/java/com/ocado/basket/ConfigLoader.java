@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
+import java.util.List;
 
 public class ConfigLoader {
     public static Config loadConfig(String filePath) throws IOException {
@@ -19,7 +20,19 @@ public class ConfigLoader {
                 throw new IllegalArgumentException("Invalid JSON format: Array is not supported.");
             }
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("There is no filed like this!");
+            throw new FileNotFoundException("Config file not found!");
+        }
+    }
+
+    public static void validateConfig(Config config) {
+        if (config.getDeliveryOptions().size() > 1000) {
+            throw new IllegalArgumentException("Config cannot contain more than 1000 products.");
+        }
+
+        for (List<String> deliveryOptions : config.getDeliveryOptions().values()) {
+            if (deliveryOptions.size() > 10) {
+                throw new IllegalArgumentException("Each product cannot have more than 10 delivery options.");
+            }
         }
     }
 }

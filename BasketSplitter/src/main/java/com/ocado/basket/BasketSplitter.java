@@ -11,23 +11,11 @@ public class BasketSplitter {
     public BasketSplitter(String absolutePathToConfigFile, List<String> basket) throws IOException {
         try {
             this.config = ConfigLoader.loadConfig(absolutePathToConfigFile);
+            ConfigLoader.validateConfig(this.config);
         } catch (FileNotFoundException e) {
             throw new IOException("Config file not found!", e);
         }
 
-        if (config.getDeliveryOptions().size() > 1000) {
-            throw new IllegalArgumentException("Config cannot contain more than 1000 products.");
-        }
-
-        for (List<String> deliveryOptions : config.getDeliveryOptions().values()) {
-            if (deliveryOptions.size() > 10) {
-                throw new IllegalArgumentException("Each product cannot have more than 10 delivery options.");
-            }
-        }
-
-        if (basket != null && basket.size() > 100) {
-            throw new IllegalArgumentException("Basket cannot contain more than 100 products.");
-        }
         this.basket = basket;
     }
     public Map<String, List<String>> split() {

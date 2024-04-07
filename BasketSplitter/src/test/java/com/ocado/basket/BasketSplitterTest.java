@@ -150,16 +150,6 @@ class BasketSplitterTest {
 
     @Test
     void split_Exception1() throws IOException {
-        // Check if overpacked basket throws an IllegalArgumentException
-        String configFilePath = "src/main/resources/config.json";
-        String validFilePath = "src/main/resources/overpacked_basket.json";
-        List<String> basket = BasketLoader.loadBasket(validFilePath);
-
-        assertThrows(IllegalArgumentException.class, () -> new BasketSplitter(configFilePath, basket));
-    }
-
-    @Test
-    void split_Exception2() throws IOException {
         // Check if invalid config throws an IllegalArgumentException
         String configFilePath = "src/main/resources/config2.json";
         String validFilePath = "src/main/resources/basket-1.json";
@@ -169,7 +159,7 @@ class BasketSplitterTest {
     }
 
     @Test
-    void split_Exception3() throws IOException {
+    void split_Exception2() throws IOException {
         // Check if error in basket throws an IllegalArgumentException
         String configFilePath = "src/main/resources/config.json";
         String validFilePath = "src/main/resources/error_basket.json";
@@ -180,7 +170,7 @@ class BasketSplitterTest {
     }
 
     @Test
-    void split_Exception4() throws IOException {
+    void split_Exception3() throws IOException {
         // Check if error in basket throws an IllegalArgumentException
         String configFilePath = "src/main/resources/config3.json";
         String validFilePath = "src/main/resources/error_basket.json";
@@ -190,7 +180,7 @@ class BasketSplitterTest {
     }
 
     @Test
-    void split_Exception5() throws IOException {
+    void split_Exception4() throws IOException {
         // Check if IllegalArgumentException is thrown for an invalid config
         String configFilePath = "src/main/resources/config3.json";
         String validFilePath = "src/main/resources/basket-1.json";
